@@ -1,6 +1,6 @@
 {
   "name": "mdast-util-assert",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Assert MDAST nodes",
   "license": "MIT",
   "keywords": [
