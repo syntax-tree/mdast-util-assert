@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -27,7 +16,7 @@ test('children', function (t) {
     function () {
       assert({type: 'paragraph', children: ['one']});
     },
-    /^AssertionError: node should be an object: `'one'` in `{ type: 'paragraph', children: \[ 'one' \] }`$/,
+    /^AssertionError: node should be an object: `'one'` in `{ type: 'paragraph', children: \[ 'one' ] }`$/,
     'should throw if given a non-node child in children'
   );
 
@@ -45,7 +34,7 @@ test('children', function (t) {
         children: ['one']
       }]});
     },
-    /^AssertionError: node should be an object: `'one'` in `{ type: 'bar', children: \[ 'one' \] }`$/,
+    /^AssertionError: node should be an object: `'one'` in `{ type: 'bar', children: \[ 'one' ] }`$/,
     'should throw on invalid descendants'
   );
 

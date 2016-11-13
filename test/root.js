@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -27,7 +16,7 @@ test('assert(root)', function (t) {
     function () {
       assert({type: 'paragraph', children: [{type: 'root', children: []}]});
     },
-    /^AssertionError: `root` should not have a parent: `{ type: 'root', children: \[\] }` in `{ type: 'paragraph',\n {2}children: \[ { type: 'root', children: \[\] } \] }`$/,
+    /^AssertionError: `root` should not have a parent: `{ type: 'root', children: \[] }` in `{ type: 'paragraph',\n {2}children: \[ { type: 'root', children: \[] } ] }`$/,
     'should throw if a `root` has a parent'
   );
 

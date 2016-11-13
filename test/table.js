@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -34,7 +23,7 @@ test('assert(table)', function (t) {
     function () {
       assert({type: 'table', children: [], align: 1});
     },
-    /^AssertionError: `align` must be `array`: `{ type: 'table', children: \[\], align: 1 }`$/,
+    /^AssertionError: `align` must be `array`: `{ type: 'table', children: \[], align: 1 }`$/,
     'should throw if `align` is not a `string`'
   );
 
@@ -42,7 +31,7 @@ test('assert(table)', function (t) {
     function () {
       assert({type: 'table', children: [], align: [1]});
     },
-    /^AssertionError: each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[\], align: \[ 1 \] }`$/,
+    /^AssertionError: each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[], align: \[ 1 ] }`$/,
     'should throw if an `align` is unknown'
   );
 

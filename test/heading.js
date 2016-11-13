@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -27,7 +16,7 @@ test('assert(heading)', function (t) {
     function () {
       assert({type: 'heading', depth: 0, children: []});
     },
-    /^AssertionError: `depth` should be gte `1`: `{ type: 'heading', depth: 0, children: \[\] }`$/,
+    /^AssertionError: `depth` should be gte `1`: `{ type: 'heading', depth: 0, children: \[] }`$/,
     'should throw if `depth` is lower than 1'
   );
 
@@ -35,7 +24,7 @@ test('assert(heading)', function (t) {
     function () {
       assert({type: 'heading', depth: 7, children: []});
     },
-    /^AssertionError: `depth` should be lte `6`: `{ type: 'heading', depth: 7, children: \[\] }`$/,
+    /^AssertionError: `depth` should be lte `6`: `{ type: 'heading', depth: 7, children: \[] }`$/,
     'should throw if `depth` is lower than 7'
   );
 

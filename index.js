@@ -1,15 +1,4 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Assert `unist` nodes.
- */
-
 'use strict';
-
-/* eslint-env commonjs */
-/* eslint-disable babel/new-cap */
 
 /* Dependencies. */
 var assert = require('assert');

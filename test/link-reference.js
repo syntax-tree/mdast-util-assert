@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -27,7 +16,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', children: []});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', children: \[\] }`$/,
+    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', children: \[] }`$/,
     'should throw if `linkReference` has no `identifier`'
   );
 
@@ -35,7 +24,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', identifier: 1, children: []});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', identifier: 1, children: \[\] }`$/,
+    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', identifier: 1, children: \[] }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
@@ -50,7 +39,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', identifier: '1', referenceType: 1, children: []});
     },
-    /^AssertionError: `referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'linkReference',\n {2}identifier: '1',\n {2}referenceType: 1,\n {2}children: \[\] }`$/,
+    /^AssertionError: `referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'linkReference',\n {2}identifier: '1',\n {2}referenceType: 1,\n {2}children: \[] }`$/,
     'should throw if `referenceType` is not a `string`'
   );
 

@@ -51,8 +51,7 @@
       "guard-for-in": "off"
     },
     "ignores": [
-      "mdast-util-assert.js",
-      "mdast-util-assert.min.js"
+      "mdast-util-assert.js"
     ]
   },
   "nyc": {

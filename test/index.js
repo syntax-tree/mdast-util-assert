@@ -1,18 +1,7 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module mdast-util-assert
- * @fileoverview Test suite for `mdast-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
+/* eslint-disable import/no-unassigned-import */
 
-/* Dependencies. */
-
-/* Tests. */
 require('./node');
 require('./children');
 require('./root');
