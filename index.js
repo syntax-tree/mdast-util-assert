@@ -11,7 +11,8 @@ var unist = require('unist-util-assert');
 var mdast = zwitch('type');
 
 /* Expose. */
-module.exports = exports = unist.wrap(mdast);
+exports = unist.wrap(mdast);
+module.exports = exports;
 
 exports.parent = unist.wrap(parent);
 exports.text = unist.text;
@@ -20,7 +21,8 @@ exports.wrap = unist.wrap;
 exports.all = mapz(exports, {key: 'children', indices: false});
 
 /* Core interface. */
-mdast.invalid = mdast.unknown = unknown;
+mdast.unknown = unknown;
+mdast.invalid = unknown;
 
 /* Per-type handling. */
 mdast.handlers = {
