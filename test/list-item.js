@@ -8,7 +8,7 @@ test('assert(listItem)', function (t) {
     function () {
       assert({type: 'listItem'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'listItem' }`$/,
+    /parent should have `children`: `{ type: 'listItem' }`$/,
     'should throw if a `listItem` is not a parent'
   );
 
@@ -23,7 +23,7 @@ test('assert(listItem)', function (t) {
     function () {
       assert({type: 'listItem', loose: 1, children: []});
     },
-    /^AssertionError: `loose` must be `boolean`: `{ type: 'listItem', loose: 1, children: \[] }`$/,
+    /`loose` must be `boolean`: `{ type: 'listItem', loose: 1, children: \[] }`$/,
     'should throw if `loose` is not a `boolean`'
   );
 
@@ -38,7 +38,7 @@ test('assert(listItem)', function (t) {
     function () {
       assert({type: 'listItem', checked: 'yup', children: []});
     },
-    /^AssertionError: `checked` must be `boolean`: `{ type: 'listItem', checked: 'yup', children: \[] }`$/,
+    /`checked` must be `boolean`: `{ type: 'listItem', checked: 'yup', children: \[] }`$/,
     'should throw if a `checked` is not a `boolean`'
   );
 

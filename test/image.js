@@ -15,7 +15,7 @@ test('assert(image)', function (t) {
     function () {
       assert({type: 'image', url: 1});
     },
-    /^AssertionError: `url` must be `string`: `{ type: 'image', url: 1 }`$/,
+    /`url` must be `string`: `{ type: 'image', url: 1 }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
@@ -23,7 +23,7 @@ test('assert(image)', function (t) {
     function () {
       assert({type: 'image', title: 1});
     },
-    /^AssertionError: `title` must be `string`: `{ type: 'image', title: 1 }`$/,
+    /`title` must be `string`: `{ type: 'image', title: 1 }`$/,
     'should throw if `title` is not a `string`'
   );
 
@@ -31,7 +31,7 @@ test('assert(image)', function (t) {
     function () {
       assert({type: 'image', alt: 1});
     },
-    /^AssertionError: `alt` must be `string`: `{ type: 'image', alt: 1 }`$/,
+    /`alt` must be `string`: `{ type: 'image', alt: 1 }`$/,
     'should throw if `alt` is not a `string`'
   );
 

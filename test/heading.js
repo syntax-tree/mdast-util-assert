@@ -8,7 +8,7 @@ test('assert(heading)', function (t) {
     function () {
       assert({type: 'heading'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'heading' }`$/,
+    /parent should have `children`: `{ type: 'heading' }`$/,
     'should throw if a `heading` is not a parent'
   );
 
@@ -16,7 +16,7 @@ test('assert(heading)', function (t) {
     function () {
       assert({type: 'heading', depth: 0, children: []});
     },
-    /^AssertionError: `depth` should be gte `1`: `{ type: 'heading', depth: 0, children: \[] }`$/,
+    /`depth` should be gte `1`: `{ type: 'heading', depth: 0, children: \[] }`$/,
     'should throw if `depth` is lower than 1'
   );
 
@@ -24,7 +24,7 @@ test('assert(heading)', function (t) {
     function () {
       assert({type: 'heading', depth: 7, children: []});
     },
-    /^AssertionError: `depth` should be lte `6`: `{ type: 'heading', depth: 7, children: \[] }`$/,
+    /`depth` should be lte `6`: `{ type: 'heading', depth: 7, children: \[] }`$/,
     'should throw if `depth` is lower than 7'
   );
 

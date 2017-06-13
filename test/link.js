@@ -8,7 +8,7 @@ test('assert(link)', function (t) {
     function () {
       assert({type: 'link'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'link' }`$/,
+    /parent should have `children`: `{ type: 'link' }`$/,
     'should throw if `link` is not a parent'
   );
 
@@ -23,7 +23,7 @@ test('assert(link)', function (t) {
     function () {
       assert({type: 'link', children: [], url: 1});
     },
-    /^AssertionError: `url` must be `string`: `{ type: 'link', children: \[], url: 1 }`$/,
+    /`url` must be `string`: `{ type: 'link', children: \[], url: 1 }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
@@ -31,7 +31,7 @@ test('assert(link)', function (t) {
     function () {
       assert({type: 'link', children: [], title: 1});
     },
-    /^AssertionError: `title` must be `string`: `{ type: 'link', children: \[], title: 1 }`$/,
+    /`title` must be `string`: `{ type: 'link', children: \[], title: 1 }`$/,
     'should throw if `title` is not a `string`'
   );
 

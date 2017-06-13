@@ -8,7 +8,7 @@ test('assert(imageReference)', function (t) {
     function () {
       assert({type: 'imageReference'});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'imageReference' }`$/,
+    /`identifier` must be `string`: `{ type: 'imageReference' }`$/,
     'should throw if `imageReference` has no `identifier`'
   );
 
@@ -16,7 +16,7 @@ test('assert(imageReference)', function (t) {
     function () {
       assert({type: 'imageReference', identifier: 1});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'imageReference', identifier: 1 }`$/,
+    /`identifier` must be `string`: `{ type: 'imageReference', identifier: 1 }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
@@ -31,7 +31,7 @@ test('assert(imageReference)', function (t) {
     function () {
       assert({type: 'imageReference', identifier: '1', alt: 1});
     },
-    /^AssertionError: `alt` must be `string`: `{ type: 'imageReference', identifier: '1', alt: 1 }`$/,
+    /`alt` must be `string`: `{ type: 'imageReference', identifier: '1', alt: 1 }`$/,
     'should throw if `alt` is not a `string`'
   );
 
@@ -39,7 +39,7 @@ test('assert(imageReference)', function (t) {
     function () {
       assert({type: 'imageReference', identifier: '1', referenceType: 1});
     },
-    /^AssertionError: `referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'imageReference', identifier: '1', referenceType: 1 }`$/,
+    /`referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'imageReference', identifier: '1', referenceType: 1 }`$/,
     'should throw if `referenceType` is not a `string`'
   );
 

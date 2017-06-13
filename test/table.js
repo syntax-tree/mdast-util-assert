@@ -8,7 +8,7 @@ test('assert(table)', function (t) {
     function () {
       assert({type: 'table'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'table' }`$/,
+    /parent should have `children`: `{ type: 'table' }`$/,
     'should throw if `table` is not a parent'
   );
 
@@ -23,7 +23,7 @@ test('assert(table)', function (t) {
     function () {
       assert({type: 'table', children: [], align: 1});
     },
-    /^AssertionError: `align` must be `array`: `{ type: 'table', children: \[], align: 1 }`$/,
+    /`align` must be `array`: `{ type: 'table', children: \[], align: 1 }`$/,
     'should throw if `align` is not a `string`'
   );
 
@@ -31,7 +31,7 @@ test('assert(table)', function (t) {
     function () {
       assert({type: 'table', children: [], align: [1]});
     },
-    /^AssertionError: each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[], align: \[ 1 ] }`$/,
+    /each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[], align: \[ 1 ] }`$/,
     'should throw if an `align` is unknown'
   );
 

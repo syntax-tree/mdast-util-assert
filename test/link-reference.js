@@ -8,7 +8,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'linkReference' }`$/,
+    /parent should have `children`: `{ type: 'linkReference' }`$/,
     'should throw if `linkReference` has no children'
   );
 
@@ -16,7 +16,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', children: []});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', children: \[] }`$/,
+    /`identifier` must be `string`: `{ type: 'linkReference', children: \[] }`$/,
     'should throw if `linkReference` has no `identifier`'
   );
 
@@ -24,7 +24,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', identifier: 1, children: []});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'linkReference', identifier: 1, children: \[] }`$/,
+    /`identifier` must be `string`: `{ type: 'linkReference', identifier: 1, children: \[] }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
@@ -39,7 +39,7 @@ test('assert(linkReference)', function (t) {
     function () {
       assert({type: 'linkReference', identifier: '1', referenceType: 1, children: []});
     },
-    /^AssertionError: `referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'linkReference',\n {2}identifier: '1',\n {2}referenceType: 1,\n {2}children: \[] }`$/,
+    /`referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'linkReference',\n {2}identifier: '1',\n {2}referenceType: 1,\n {2}children: \[] }`$/,
     'should throw if `referenceType` is not a `string`'
   );
 

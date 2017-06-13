@@ -8,7 +8,7 @@ test('assert(code)', function (t) {
     function () {
       assert({type: 'code'});
     },
-    /^AssertionError: text should have `value`: `{ type: 'code' }`$/,
+    /text should have `value`: `{ type: 'code' }`$/,
     'should throw if `code` is not a text'
   );
 
@@ -23,7 +23,7 @@ test('assert(code)', function (t) {
     function () {
       assert({type: 'code', lang: 0, value: ''});
     },
-    /^AssertionError: `lang` must be `string`: `{ type: 'code', lang: 0, value: '' }`$/,
+    /`lang` must be `string`: `{ type: 'code', lang: 0, value: '' }`$/,
     'should throw if `lang` is not a string'
   );
 

@@ -8,7 +8,7 @@ test('assert(footnoteReference)', function (t) {
     function () {
       assert({type: 'footnoteReference'});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'footnoteReference' }`$/,
+    /`identifier` must be `string`: `{ type: 'footnoteReference' }`$/,
     'should throw if `footnoteReference` has no `identifier`'
   );
 
@@ -16,7 +16,7 @@ test('assert(footnoteReference)', function (t) {
     function () {
       assert({type: 'footnoteReference', identifier: 1});
     },
-    /^AssertionError: `identifier` must be `string`: `{ type: 'footnoteReference', identifier: 1 }`$/,
+    /`identifier` must be `string`: `{ type: 'footnoteReference', identifier: 1 }`$/,
     'should throw if `identifier` is not a `string`'
   );
 
