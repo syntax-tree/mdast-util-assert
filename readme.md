@@ -37,6 +37,14 @@ all children will be asserted as well.
 The `assert.parent`, `assert.text`, `assert.void`, and `assert.wrap`
 methods from [`unist-util-assert`][unist-util-assert] are also included.
 
+## Contribute
+
+See [`contribute.md` in `syntax-tree/mdast`][contribute] for ways to get
+started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
@@ -60,3 +68,7 @@ methods from [`unist-util-assert`][unist-util-assert] are also included.
 [mdast]: https://github.com/syntax-tree/mdast
 
 [unist-util-assert]: https://github.com/syntax-tree/unist-util-assert
+
+[contribute]: https://github.com/syntax-tree/mdast/blob/master/contributing.md
+
+[coc]: https://github.com/syntax-tree/mdast/blob/master/code-of-conduct.md
