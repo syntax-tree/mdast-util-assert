@@ -26,18 +26,18 @@
   },
   "devDependencies": {
     "browserify": "^16.0.0",
-    "esmangle": "^1.0.1",
     "nyc": "^12.0.0",
     "prettier": "^1.14.2",
     "remark-cli": "^5.0.0",
     "remark-preset-wooorm": "^4.0.0",
     "tape": "^4.0.0",
+    "tinyify": "^2.4.3",
     "xo": "^0.22.0"
   },
   "scripts": {
     "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
-    "build-bundle": "browserify index.js -s mdastUtilAssert > mdast-util-assert.js",
-    "build-mangle": "esmangle < mdast-util-assert.js > mdast-util-assert.min.js",
+    "build-bundle": "browserify . -s mdastUtilAssert > mdast-util-assert.js",
+    "build-mangle": "browserify . -s mdastUtilAssert -p tinyify > mdast-util-assert.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test",
