@@ -1,28 +1,27 @@
-'use strict';
+'use strict'
 
-/* Dependencies. */
-var assert = require('assert');
-var array = require('x-is-array');
-var zwitch = require('zwitch');
-var mapz = require('mapz');
-var unist = require('unist-util-assert');
+var assert = require('assert')
+var array = require('x-is-array')
+var zwitch = require('zwitch')
+var mapz = require('mapz')
+var unist = require('unist-util-assert')
 
 /* Construct. */
-var mdast = zwitch('type');
+var mdast = zwitch('type')
 
 /* Expose. */
-exports = unist.wrap(mdast);
-module.exports = exports;
+exports = unist.wrap(mdast)
+module.exports = exports
 
-exports.parent = unist.wrap(parent);
-exports.text = unist.text;
-exports.void = unist.void;
-exports.wrap = unist.wrap;
-exports.all = mapz(exports, {key: 'children', indices: false});
+exports.parent = unist.wrap(parent)
+exports.text = unist.text
+exports.void = unist.void
+exports.wrap = unist.wrap
+exports.all = mapz(exports, {key: 'children', indices: false})
 
 /* Core interface. */
-mdast.unknown = unknown;
-mdast.invalid = unknown;
+mdast.unknown = unknown
+mdast.invalid = unknown
 
 /* Per-type handling. */
 mdast.handlers = {
@@ -53,142 +52,174 @@ mdast.handlers = {
   footnoteReference: unist.wrap(footnoteReference),
   table: unist.wrap(table),
   html: exports.text
-};
+}
 
 function unknown(node, ancestor) {
-  unist(node, ancestor);
+  unist(node, ancestor)
 }
 
 function parent(node) {
-  unist.parent(node);
-  exports.all(node);
+  unist.parent(node)
+  exports.all(node)
 }
 
 function root(node, ancestor) {
-  parent(node);
+  parent(node)
 
-  assert.strictEqual(ancestor, undefined, '`root` should not have a parent');
+  assert.strictEqual(ancestor, undefined, '`root` should not have a parent')
 }
 
 function list(node) {
-  parent(node);
+  parent(node)
 
   if (node.loose != null) {
-    assert.strictEqual(typeof node.loose, 'boolean', '`loose` must be `boolean`');
+    assert.strictEqual(
+      typeof node.loose,
+      'boolean',
+      '`loose` must be `boolean`'
+    )
   }
 
   if (node.ordered != null) {
-    assert.strictEqual(typeof node.ordered, 'boolean', '`ordered` must be `boolean`');
+    assert.strictEqual(
+      typeof node.ordered,
+      'boolean',
+      '`ordered` must be `boolean`'
+    )
   }
 
   if (!node.ordered) {
-    assert.ok(node.start == null, 'unordered lists must not have `start`');
+    assert.ok(node.start == null, 'unordered lists must not have `start`')
   } else if (node.start != null) {
-    assert.strictEqual(typeof node.start, 'number', 'ordered lists must have `start`');
-    assert.ok(node.start >= 0, '`start` must be gte `0`');
+    assert.strictEqual(
+      typeof node.start,
+      'number',
+      'ordered lists must have `start`'
+    )
+    assert.ok(node.start >= 0, '`start` must be gte `0`')
   }
 }
 
 function listItem(node) {
-  parent(node);
+  parent(node)
 
   if (node.loose != null) {
-    assert.strictEqual(typeof node.loose, 'boolean', '`loose` must be `boolean`');
+    assert.strictEqual(
+      typeof node.loose,
+      'boolean',
+      '`loose` must be `boolean`'
+    )
   }
 
   if (node.checked != null) {
-    assert.strictEqual(typeof node.checked, 'boolean', '`checked` must be `boolean`');
+    assert.strictEqual(
+      typeof node.checked,
+      'boolean',
+      '`checked` must be `boolean`'
+    )
   }
 }
 
 function heading(node) {
-  parent(node);
+  parent(node)
 
-  assert.ok(node.depth > 0, '`depth` should be gte `1`');
-  assert.ok(node.depth <= 6, '`depth` should be lte `6`');
+  assert.ok(node.depth > 0, '`depth` should be gte `1`')
+  assert.ok(node.depth <= 6, '`depth` should be lte `6`')
 }
 
 function code(node) {
-  unist.text(node);
+  unist.text(node)
 
   if (node.lang != null) {
-    assert.strictEqual(typeof node.lang, 'string', '`lang` must be `string`');
+    assert.strictEqual(typeof node.lang, 'string', '`lang` must be `string`')
   }
 }
 
 function footnoteDefinition(node) {
-  parent(node);
+  parent(node)
 
-  assert.strictEqual(typeof node.identifier, 'string', '`footnoteDefinition` must have `identifier`');
+  assert.strictEqual(
+    typeof node.identifier,
+    'string',
+    '`footnoteDefinition` must have `identifier`'
+  )
 }
 
 function definition(node) {
-  unist.void(node);
-
-  assert.strictEqual(typeof node.identifier, 'string', '`identifier` must be `string`');
-
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`');
-  }
-
-  if (node.title != null) {
-    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`');
-  }
-}
-
-function link(node) {
-  parent(node);
-
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`');
-  }
-
-  if (node.title != null) {
-    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`');
-  }
-}
-
-function image(node) {
-  unist.void(node);
-
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`');
-  }
-
-  if (node.alt != null) {
-    assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`');
-  }
-
-  if (node.title != null) {
-    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`');
-  }
-}
-
-function linkReference(node) {
-  parent(node);
-
-  assert.strictEqual(typeof node.identifier, 'string', '`identifier` must be `string`');
-
-  if (node.referenceType != null) {
-    assert.notStrictEqual(
-      ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
-      -1,
-      '`referenceType` must be `shortcut`, `collapsed`, or `full`'
-    );
-  }
-}
-
-function imageReference(node) {
-  unist.void(node);
+  unist.void(node)
 
   assert.strictEqual(
     typeof node.identifier,
     'string',
     '`identifier` must be `string`'
-  );
+  )
+
+  if (node.url != null) {
+    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  }
+
+  if (node.title != null) {
+    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
+  }
+}
+
+function link(node) {
+  parent(node)
+
+  if (node.url != null) {
+    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  }
+
+  if (node.title != null) {
+    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
+  }
+}
+
+function image(node) {
+  unist.void(node)
+
+  if (node.url != null) {
+    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  }
 
   if (node.alt != null) {
-    assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`');
+    assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
+  }
+
+  if (node.title != null) {
+    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
+  }
+}
+
+function linkReference(node) {
+  parent(node)
+
+  assert.strictEqual(
+    typeof node.identifier,
+    'string',
+    '`identifier` must be `string`'
+  )
+
+  if (node.referenceType != null) {
+    assert.notStrictEqual(
+      ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
+      -1,
+      '`referenceType` must be `shortcut`, `collapsed`, or `full`'
+    )
+  }
+}
+
+function imageReference(node) {
+  unist.void(node)
+
+  assert.strictEqual(
+    typeof node.identifier,
+    'string',
+    '`identifier` must be `string`'
+  )
+
+  if (node.alt != null) {
+    assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
   }
 
   if (node.referenceType != null) {
@@ -196,41 +227,45 @@ function imageReference(node) {
       ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
       -1,
       '`referenceType` must be `shortcut`, `collapsed`, or `full`'
-    );
+    )
   }
 }
 
 function footnoteReference(node) {
-  unist.void(node);
+  unist.void(node)
 
-  assert.strictEqual(typeof node.identifier, 'string', '`identifier` must be `string`');
+  assert.strictEqual(
+    typeof node.identifier,
+    'string',
+    '`identifier` must be `string`'
+  )
 }
 
 function table(node) {
-  var align;
-  var val;
-  var length;
-  var index;
+  var align
+  var val
+  var length
+  var index
 
-  parent(node);
+  parent(node)
 
-  align = node.align;
+  align = node.align
 
   if (align != null) {
-    assert.ok(array(align), '`align` must be `array`');
+    assert.ok(array(align), '`align` must be `array`')
 
-    length = align.length;
-    index = -1;
+    length = align.length
+    index = -1
 
     while (++index < length) {
-      val = align[index];
+      val = align[index]
 
       if (val != null) {
         assert.notStrictEqual(
           ['left', 'right', 'center'].indexOf(val),
           -1,
-          'each align in table must be `null, \'left\', \'right\', \'center\'`'
-        );
+          "each align in table must be `null, 'left', 'right', 'center'`"
+        )
       }
     }
   }

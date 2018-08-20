@@ -13,17 +13,17 @@ npm install mdast-util-assert
 ## Usage
 
 ```javascript
-var assert = require('mdast-util-assert');
+var assert = require('mdast-util-assert')
 
-assert({type: 'root', children: []});
-assert({type: 'break'});
-assert({type: 'listItem', checked: true, children: []});
+assert({type: 'root', children: []})
+assert({type: 'break'})
+assert({type: 'listItem', checked: true, children: []})
 // All OK.
 
-assert({children: []});
+assert({children: []})
 // AssertionError: node should have a type: `{ children: [] }`
 
-assert({type: 'paragraph', value: 'foo'});
+assert({type: 'paragraph', value: 'foo'})
 // AssertionError: parent should have children: `{ type: 'paragraph', value: 'foo' }`
 ```
 
