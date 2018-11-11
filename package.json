@@ -14,9 +14,9 @@
   ],
   "repository": "syntax-tree/mdast-util-assert",
   "bugs": "https://github.com/syntax-tree/mdast-util-assert/issues",
-  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
-    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "dependencies": {
     "mapz": "^1.0.0",
