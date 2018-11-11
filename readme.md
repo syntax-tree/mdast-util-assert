@@ -1,6 +1,6 @@
 # mdast-util-assert [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
 
-Assert [MDAST][] nodes.
+Assert [mdast][] nodes.
 
 ## Installation
 
@@ -31,7 +31,7 @@ assert({type: 'paragraph', value: 'foo'})
 
 ### `assert(node)`
 
-Assert that `node` is a valid [MDAST][] node.  If `node` has `children`,
+Assert that `node` is a valid [mdast][] node.  If `node` has `children`,
 all children will be asserted as well.
 
 The `assert.parent`, `assert.text`, `assert.void`, and `assert.wrap`
