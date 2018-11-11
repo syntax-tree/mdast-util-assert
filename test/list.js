@@ -18,15 +18,15 @@ test('assert(list)', function(t) {
 
   t.throws(
     function() {
-      assert({type: 'list', loose: 1, children: []})
+      assert({type: 'list', spread: 1, children: []})
     },
-    /`loose` must be `boolean`: `{ type: 'list', loose: 1, children: \[] }`$/,
-    'should throw if `loose` is not a `boolean`'
+    /`spread` must be `boolean`: `{ type: 'list', spread: 1, children: \[] }`$/,
+    'should throw if `spread` is not a `boolean`'
   )
 
   t.doesNotThrow(function() {
-    assert({type: 'list', loose: false, children: []})
-  }, 'should not throw if `loose` is a `boolean`')
+    assert({type: 'list', spread: false, children: []})
+  }, 'should not throw if `spread` is a `boolean`')
 
   t.throws(
     function() {

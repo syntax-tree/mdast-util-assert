@@ -32,5 +32,18 @@ test('assert(footnoteDefinition)', function(t) {
     assert({type: 'footnoteDefinition', identifier: '1', children: []})
   }, 'should not throw if `footnoteDefinition` has an identifier')
 
+  t.throws(
+    function() {
+      assert({
+        type: 'footnoteDefinition',
+        identifier: '1',
+        label: 1,
+        children: []
+      })
+    },
+    /`label` must be `string`: `{ type: 'footnoteDefinition',\s+identifier: '1',\s+label: 1,\s+children: \[] }`$/,
+    'should throw if `label` is not a `string`'
+  )
+
   t.end()
 })

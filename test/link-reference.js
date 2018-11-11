@@ -54,5 +54,13 @@ test('assert(linkReference)', function(t) {
     })
   }, 'should not throw if `referenceType` is valid')
 
+  t.throws(
+    function() {
+      assert({type: 'linkReference', identifier: '1', children: [], label: 1})
+    },
+    /`label` must be `string`: `{ type: 'linkReference', identifier: '1', children: \[], label: 1 }`$/,
+    'should throw if `label` is not a `string`'
+  )
+
   t.end()
 })

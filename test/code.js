@@ -24,5 +24,21 @@ test('assert(code)', function(t) {
     'should throw if `lang` is not a string'
   )
 
+  t.throws(
+    function() {
+      assert({type: 'code', lang: 'js', meta: 1, value: ''})
+    },
+    /`meta` must be `string`: `{ type: 'code', lang: 'js', meta: 1, value: '' }`$/,
+    'should throw if `meta` is not a string'
+  )
+
+  t.throws(
+    function() {
+      assert({type: 'code', meta: '', value: ''})
+    },
+    /code with `meta` must also have `lang`: `{ type: 'code', meta: '', value: '' }`$/,
+    'should throw if `meta` is defined but not `lang`'
+  )
+
   t.end()
 })

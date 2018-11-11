@@ -6,10 +6,10 @@ var zwitch = require('zwitch')
 var mapz = require('mapz')
 var unist = require('unist-util-assert')
 
-/* Construct. */
+// Construct.
 var mdast = zwitch('type')
 
-/* Expose. */
+// Expose.
 exports = unist.wrap(mdast)
 module.exports = exports
 
@@ -19,11 +19,11 @@ exports.void = unist.void
 exports.wrap = unist.wrap
 exports.all = mapz(exports, {key: 'children', indices: false})
 
-/* Core interface. */
+// Core interface.
 mdast.unknown = unknown
 mdast.invalid = unknown
 
-/* Per-type handling. */
+// Per-type handling.
 mdast.handlers = {
   root: unist.wrap(root),
   paragraph: exports.parent,
@@ -39,6 +39,7 @@ mdast.handlers = {
   text: exports.text,
   inlineCode: exports.text,
   yaml: exports.text,
+  toml: exports.text,
   code: unist.wrap(code),
   thematicBreak: exports.void,
   break: exports.void,
@@ -72,11 +73,11 @@ function root(node, ancestor) {
 function list(node) {
   parent(node)
 
-  if (node.loose != null) {
+  if (node.spread != null) {
     assert.strictEqual(
-      typeof node.loose,
+      typeof node.spread,
       'boolean',
-      '`loose` must be `boolean`'
+      '`spread` must be `boolean`'
     )
   }
 
@@ -103,11 +104,11 @@ function list(node) {
 function listItem(node) {
   parent(node)
 
-  if (node.loose != null) {
+  if (node.spread != null) {
     assert.strictEqual(
-      typeof node.loose,
+      typeof node.spread,
       'boolean',
-      '`loose` must be `boolean`'
+      '`spread` must be `boolean`'
     )
   }
 
@@ -133,6 +134,11 @@ function code(node) {
   if (node.lang != null) {
     assert.strictEqual(typeof node.lang, 'string', '`lang` must be `string`')
   }
+
+  if (node.meta != null) {
+    assert.ok(node.lang != null, 'code with `meta` must also have `lang`')
+    assert.strictEqual(typeof node.meta, 'string', '`meta` must be `string`')
+  }
 }
 
 function footnoteDefinition(node) {
@@ -143,6 +149,10 @@ function footnoteDefinition(node) {
     'string',
     '`footnoteDefinition` must have `identifier`'
   )
+
+  if (node.label != null) {
+    assert.strictEqual(typeof node.label, 'string', '`label` must be `string`')
+  }
 }
 
 function definition(node) {
@@ -154,9 +164,11 @@ function definition(node) {
     '`identifier` must be `string`'
   )
 
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  if (node.label != null) {
+    assert.strictEqual(typeof node.label, 'string', '`label` must be `string`')
   }
+
+  assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
 
   if (node.title != null) {
     assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
@@ -166,9 +178,7 @@ function definition(node) {
 function link(node) {
   parent(node)
 
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
-  }
+  assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
 
   if (node.title != null) {
     assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
@@ -178,16 +188,14 @@ function link(node) {
 function image(node) {
   unist.void(node)
 
-  if (node.url != null) {
-    assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  assert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+
+  if (node.title != null) {
+    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
   }
 
   if (node.alt != null) {
     assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
-  }
-
-  if (node.title != null) {
-    assert.strictEqual(typeof node.title, 'string', '`title` must be `string`')
   }
 }
 
@@ -199,6 +207,10 @@ function linkReference(node) {
     'string',
     '`identifier` must be `string`'
   )
+
+  if (node.label != null) {
+    assert.strictEqual(typeof node.label, 'string', '`label` must be `string`')
+  }
 
   if (node.referenceType != null) {
     assert.notStrictEqual(
@@ -217,6 +229,10 @@ function imageReference(node) {
     'string',
     '`identifier` must be `string`'
   )
+
+  if (node.label != null) {
+    assert.strictEqual(typeof node.label, 'string', '`label` must be `string`')
+  }
 
   if (node.alt != null) {
     assert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
@@ -239,6 +255,10 @@ function footnoteReference(node) {
     'string',
     '`identifier` must be `string`'
   )
+
+  if (node.label != null) {
+    assert.strictEqual(typeof node.label, 'string', '`label` must be `string`')
+  }
 }
 
 function table(node) {

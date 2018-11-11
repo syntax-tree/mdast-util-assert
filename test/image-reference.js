@@ -48,5 +48,13 @@ test('assert(imageReference)', function(t) {
     })
   }, 'should not throw if `referenceType` is valid')
 
+  t.throws(
+    function() {
+      assert({type: 'imageReference', identifier: '1', label: 1})
+    },
+    /`label` must be `string`: `{ type: 'imageReference', identifier: '1', label: 1 }`$/,
+    'should throw if `label` is not a `string`'
+  )
+
   t.end()
 })

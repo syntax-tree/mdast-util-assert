@@ -24,5 +24,13 @@ test('assert(footnoteReference)', function(t) {
     assert({type: 'footnoteReference', identifier: '1'})
   }, 'should not throw if `footnoteReference` has no other properties')
 
+  t.throws(
+    function() {
+      assert({type: 'footnoteReference', identifier: '1', label: 1})
+    },
+    /`label` must be `string`: `{ type: 'footnoteReference', identifier: '1', label: 1 }`$/,
+    'should throw if `label` is not a `string`'
+  )
+
   t.end()
 })
