@@ -36,7 +36,7 @@ test('assert(table)', function(t) {
     assert({
       type: 'table',
       children: [],
-      align: [null, undefined, 'left', 'right', 'center']
+      align: [null, 'left', 'right', 'center']
     })
   }, 'should allow defined aligns')
 
