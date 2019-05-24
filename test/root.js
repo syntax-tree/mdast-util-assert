@@ -16,7 +16,7 @@ test('assert(root)', function(t) {
     function() {
       assert({type: 'paragraph', children: [{type: 'root', children: []}]})
     },
-    /`root` should not have a parent: `{ type: 'root', children: \[] }` in `{ type: 'paragraph',\n {2}children: \[ { type: 'root', children: \[] } ] }`$/,
+    /`root` should not have a parent: `{ type: 'root', children: \[] }`/,
     'should throw if a `root` has a parent'
   )
 

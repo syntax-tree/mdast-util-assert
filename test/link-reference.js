@@ -41,7 +41,7 @@ test('assert(linkReference)', function(t) {
         children: []
       })
     },
-    /`referenceType` must be `shortcut`, `collapsed`, or `full`: `{ type: 'linkReference',\n {2}identifier: '1',\n {2}referenceType: 1,\n {2}children: \[] }`$/,
+    /`referenceType` must be `shortcut`, `collapsed`, or `full`/,
     'should throw if `referenceType` is not a `string`'
   )
 
