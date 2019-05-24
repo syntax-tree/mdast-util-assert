@@ -8,19 +8,19 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Assert [mdast][] nodes.
+[**mdast**][mdast] utility to assert trees.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install mdast-util-assert
 ```
 
 ## Usage
 
-```javascript
+```js
 var assert = require('mdast-util-assert')
 
 assert({type: 'root', children: []})
@@ -39,19 +39,21 @@ assert({type: 'paragraph', value: 'foo'})
 
 ### `assert(node)`
 
-Assert that `node` is a valid [mdast][] node.  If `node` has `children`,
-all children will be asserted as well.
+Assert that [`tree`][tree] is a valid [mdast][] [node][].
+If `tree` is a [parent][], all [child][]ren will be asserted as well.
 
 The `assert.parent`, `assert.text`, `assert.void`, and `assert.wrap`
 methods from [`unist-util-assert`][unist-util-assert] are also included.
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/mdast`][contributing] for ways to get
+See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -91,10 +93,20 @@ repository, organisation, or community you agree to abide by its terms.
 
 [author]: https://wooorm.com
 
+[contributing]: https://github.com/syntax-tree/.github/blob/master/contributing.md
+
+[support]: https://github.com/syntax-tree/.github/blob/master/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
+
 [mdast]: https://github.com/syntax-tree/mdast
 
 [unist-util-assert]: https://github.com/syntax-tree/unist-util-assert
 
-[contributing]: https://github.com/syntax-tree/mdast/blob/master/contributing.md
+[tree]: https://github.com/syntax-tree/unist#tree
 
-[coc]: https://github.com/syntax-tree/mdast/blob/master/code-of-conduct.md
+[child]: https://github.com/syntax-tree/unist#child
+
+[node]: https://github.com/syntax-tree/mdast#nodes
+
+[parent]: https://github.com/syntax-tree/mdast#parent
