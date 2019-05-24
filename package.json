@@ -35,7 +35,7 @@
     "xo": "^0.23.0"
   },
   "scripts": {
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify . -s mdastUtilAssert > mdast-util-assert.js",
     "build-mangle": "browserify . -s mdastUtilAssert -p tinyify > mdast-util-assert.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
