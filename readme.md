@@ -45,6 +45,11 @@ If `tree` is a [parent][], all [child][]ren will be asserted as well.
 The `assert.parent`, `assert.text`, `assert.void`, and `assert.wrap`
 methods from [`unist-util-assert`][unist-util-assert] are also included.
 
+## Security
+
+Use of `mdast-util-assert` does not involve [**hast**][hast] so there are no
+openings for [cross-site scripting (XSS)][xss] attacks.
+
 ## Contribute
 
 See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
@@ -110,3 +115,7 @@ abide by its terms.
 [node]: https://github.com/syntax-tree/mdast#nodes
 
 [parent]: https://github.com/syntax-tree/mdast#parent
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[hast]: https://github.com/syntax-tree/hast
