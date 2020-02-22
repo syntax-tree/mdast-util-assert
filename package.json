@@ -1,6 +1,6 @@
 {
   "name": "mdast-util-assert",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "mdast utility to assert trees",
   "license": "MIT",
   "keywords": [
