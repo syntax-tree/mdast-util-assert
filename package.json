@@ -9,14 +9,18 @@
     "util",
     "utility"
   ],
-  "files": [
-    "index.js"
-  ],
   "repository": "syntax-tree/mdast-util-assert",
   "bugs": "https://github.com/syntax-tree/mdast-util-assert/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
   ],
   "dependencies": {
     "mapz": "^1.0.0",
