@@ -50,6 +50,15 @@ methods from [`unist-util-assert`][unist-util-assert] are also included.
 Use of `mdast-util-assert` does not involve [**hast**][hast] so there are no
 openings for [cross-site scripting (XSS)][xss] attacks.
 
+## Related
+
+*   [`unist-util-assert`][unist-util-assert]
+    — check [unist](https://github.com/syntax-tree/unist) nodes
+*   [`hast-util-assert`](https://github.com/syntax-tree/hast-util-assert)
+    — check [hast](https://github.com/syntax-tree/hast) nodes
+*   [`nlcst-test`](https://github.com/syntax-tree/nlcst-test)
+    — check [nlcst](https://github.com/syntax-tree/nlcst) nodes
+
 ## Contribute
 
 See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
