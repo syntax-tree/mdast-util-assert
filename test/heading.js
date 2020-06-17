@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert(heading)', function(t) {
+test('assert(heading)', function (t) {
   t.throws(
-    function() {
+    function () {
       assert({type: 'heading'})
     },
     /parent should have `children`: `{ type: 'heading' }`$/,
@@ -13,7 +13,7 @@ test('assert(heading)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'heading', depth: 0, children: []})
     },
     /`depth` should be gte `1`: `{ type: 'heading', depth: 0, children: \[] }`$/,
@@ -21,14 +21,14 @@ test('assert(heading)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'heading', depth: 7, children: []})
     },
     /`depth` should be lte `6`: `{ type: 'heading', depth: 7, children: \[] }`$/,
     'should throw if `depth` is lower than 7'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({type: 'heading', depth: 1, children: []})
   }, 'should not throw if `heading` is between 0 and 7')
 

@@ -263,7 +263,7 @@ function footnoteReference(node) {
 
 function table(node) {
   var align
-  var val
+  var value
   var length
   var index
 
@@ -278,11 +278,11 @@ function table(node) {
     index = -1
 
     while (++index < length) {
-      val = align[index]
+      value = align[index]
 
-      if (val != null) {
+      if (value != null) {
         assert.notStrictEqual(
-          ['left', 'right', 'center'].indexOf(val),
+          ['left', 'right', 'center'].indexOf(value),
           -1,
           "each align in table must be `null, 'left', 'right', 'center'`"
         )

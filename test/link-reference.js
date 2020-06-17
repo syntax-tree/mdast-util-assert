@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert(linkReference)', function(t) {
+test('assert(linkReference)', function (t) {
   t.throws(
-    function() {
+    function () {
       assert({type: 'linkReference'})
     },
     /parent should have `children`: `{ type: 'linkReference' }`$/,
@@ -13,7 +13,7 @@ test('assert(linkReference)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'linkReference', children: []})
     },
     /`identifier` must be `string`: `{ type: 'linkReference', children: \[] }`$/,
@@ -21,19 +21,19 @@ test('assert(linkReference)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'linkReference', identifier: 1, children: []})
     },
     /`identifier` must be `string`: `{ type: 'linkReference', identifier: 1, children: \[] }`$/,
     'should throw if `identifier` is not a `string`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({type: 'linkReference', identifier: '1', children: []})
   }, 'should not throw if `linkReference` has no other properties')
 
   t.throws(
-    function() {
+    function () {
       assert({
         type: 'linkReference',
         identifier: '1',
@@ -45,7 +45,7 @@ test('assert(linkReference)', function(t) {
     'should throw if `referenceType` is not a `string`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({
       type: 'linkReference',
       identifier: '1',
@@ -55,7 +55,7 @@ test('assert(linkReference)', function(t) {
   }, 'should not throw if `referenceType` is valid')
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'linkReference', identifier: '1', children: [], label: 1})
     },
     /`label` must be `string`: `{ type: 'linkReference', identifier: '1', children: \[], label: 1 }`$/,

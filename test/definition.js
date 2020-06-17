@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert(definition)', function(t) {
+test('assert(definition)', function (t) {
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition'})
     },
     /`identifier` must be `string`: `{ type: 'definition' }`$/,
@@ -13,7 +13,7 @@ test('assert(definition)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition', identifier: '1'})
     },
     /`url` must be `string`: `{ type: 'definition', identifier: '1' }`$/,
@@ -21,7 +21,7 @@ test('assert(definition)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition', identifier: 1})
     },
     /`identifier` must be `string`: `{ type: 'definition', identifier: 1 }`$/,
@@ -29,19 +29,19 @@ test('assert(definition)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition', url: 1})
     },
     /`identifier` must be `string`: `{ type: 'definition', url: 1 }`$/,
     'should throw if `url` is not a `string`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({type: 'definition', identifier: '1', url: '1'})
   }, 'should not throw if `definition` has no other properties')
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition', identifier: '1', url: '1', title: 1})
     },
     /`title` must be `string`: `{ type: 'definition', identifier: '1', url: '1', title: 1 }`$/,
@@ -49,7 +49,7 @@ test('assert(definition)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'definition', identifier: '1', url: '1', label: 1})
     },
     /`label` must be `string`: `{ type: 'definition', identifier: '1', url: '1', label: 1 }`$/,

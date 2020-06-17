@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert(image)', function(t) {
+test('assert(image)', function (t) {
   t.throws(
-    function() {
+    function () {
       assert({type: 'image'})
     },
     /`url` must be `string`: `{ type: 'image' }`$/,
@@ -13,19 +13,19 @@ test('assert(image)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'image', url: 1})
     },
     /`url` must be `string`: `{ type: 'image', url: 1 }`$/,
     'should throw if `url` is not a `string`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({type: 'image', url: '1'})
   }, 'should not throw if `image` has no other properties')
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'image', url: '1', title: 1})
     },
     /`title` must be `string`: `{ type: 'image', url: '1', title: 1 }`$/,
@@ -33,7 +33,7 @@ test('assert(image)', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 'image', url: '1', alt: 1})
     },
     /`alt` must be `string`: `{ type: 'image', url: '1', alt: 1 }`$/,
