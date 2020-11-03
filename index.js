@@ -1,10 +1,10 @@
 'use strict'
 
 var assert = require('assert')
-var array = require('x-is-array')
-var zwitch = require('zwitch')
 var mapz = require('mapz')
 var unist = require('unist-util-assert')
+var array = require('x-is-array')
+var zwitch = require('zwitch')
 
 // Construct.
 var mdast = zwitch('type')
@@ -262,23 +262,16 @@ function footnoteReference(node) {
 }
 
 function table(node) {
-  var align
+  var index = -1
   var value
-  var length
-  var index
 
   parent(node)
 
-  align = node.align
+  if (node.align != null) {
+    assert.ok(array(node.align), '`align` must be `array`')
 
-  if (align != null) {
-    assert.ok(array(align), '`align` must be `array`')
-
-    length = align.length
-    index = -1
-
-    while (++index < length) {
-      value = align[index]
+    while (++index < node.align.length) {
+      value = node.align[index]
 
       if (value != null) {
         assert.notStrictEqual(
