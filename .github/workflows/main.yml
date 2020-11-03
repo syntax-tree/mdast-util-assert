@@ -1,0 +1,49 @@
+name: main
+on:
+  - pull_request
+  - push
+jobs:
+  main:
+    name: '${{ matrix.node }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dcodeIO/setup-node-nvm@master
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm test
+      - uses: codecov/codecov-action@v1
+      - if: startsWith(github.ref, 'refs/tags/')
+        run: git log $(git tag | tail -n2 | head -1)..HEAD --pretty=oneline --graph --abbrev-commit --no-decorate > release-changelog.md
+      - if: startsWith(github.ref, 'refs/tags/')
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          body_path: release-changelog.md
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: mdast-util-assert.js
+          asset_name: mdast-util-assert.js
+          asset_content_type: application/javascript
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: mdast-util-assert.min.js
+          asset_name: mdast-util-assert.min.js
+          asset_content_type: application/javascript
+    strategy:
+      matrix:
+        node:
+          - lts/dubnium
+          - node
