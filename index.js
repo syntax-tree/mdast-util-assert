@@ -1,3 +1,22 @@
+/**
+ * @typedef {Parent['children'][number]|Root} Node
+ * @typedef {import('mdast').Parent} Parent
+ * @typedef {import('mdast').Literal} Literal
+ * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').List} List
+ * @typedef {import('mdast').ListItem} ListItem
+ * @typedef {import('mdast').Heading} Heading
+ * @typedef {import('mdast').Code} Code
+ * @typedef {import('mdast').FootnoteDefinition} FootnoteDefinition
+ * @typedef {import('mdast').Definition} Definition
+ * @typedef {import('mdast').Link} Link
+ * @typedef {import('mdast').Image} Image
+ * @typedef {import('mdast').LinkReference} LinkReference
+ * @typedef {import('mdast').ImageReference} ImageReference
+ * @typedef {import('mdast').FootnoteReference} FootnoteReference
+ * @typedef {import('mdast').Table} Table
+ */
+
 import nodeAssert from 'assert'
 import {zwitch} from 'zwitch'
 import {mapz} from 'mapz'
@@ -85,10 +104,19 @@ var mdast = zwitch('type', {
 
 var all = mapz(mdast, {key: 'children'})
 
+/**
+ * @param {unknown} node
+ * @param {Parent} [ancestor]
+ * @returns {asserts node is Node}
+ */
 function unknown(node, ancestor) {
   unistAssert(node, ancestor)
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Parent}
+ */
 function assertParent(node) {
   unistParent(node)
   all(node)
@@ -107,12 +135,21 @@ function assertLiteral(node) {
   )
 }
 
+/**
+ * @param {unknown} node
+ * @param {Parent} ancestor
+ * @returns {asserts node is Root}
+ */
 function root(node, ancestor) {
   parent(node)
 
   nodeAssert.strictEqual(ancestor, undefined, '`root` should not have a parent')
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is List}
+ */
 function list(node) {
   parent(node)
 
@@ -144,6 +181,10 @@ function list(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is ListItem}
+ */
 function listItem(node) {
   parent(node)
 
@@ -164,6 +205,10 @@ function listItem(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Heading}
+ */
 function heading(node) {
   parent(node)
 
@@ -171,6 +216,10 @@ function heading(node) {
   nodeAssert.ok(node.depth <= 6, '`depth` should be lte `6`')
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Code}
+ */
 function code(node) {
   literal(node)
 
@@ -192,6 +241,10 @@ function code(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is FootnoteDefinition}
+ */
 function footnoteDefinition(node) {
   parent(node)
 
@@ -210,6 +263,10 @@ function footnoteDefinition(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Definition}
+ */
 function definition(node) {
   _void(node)
 
@@ -238,6 +295,10 @@ function definition(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Link}
+ */
 function link(node) {
   parent(node)
 
@@ -252,6 +313,10 @@ function link(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Image}
+ */
 function image(node) {
   _void(node)
 
@@ -270,6 +335,10 @@ function image(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is LinkReference}
+ */
 function linkReference(node) {
   parent(node)
 
@@ -289,6 +358,7 @@ function linkReference(node) {
 
   if (node.referenceType != null) {
     nodeAssert.notStrictEqual(
+      // @ts-expect-error Check if it’s a string.
       ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
       -1,
       '`referenceType` must be `shortcut`, `collapsed`, or `full`'
@@ -296,6 +366,10 @@ function linkReference(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is ImageReference}
+ */
 function imageReference(node) {
   _void(node)
 
@@ -319,6 +393,7 @@ function imageReference(node) {
 
   if (node.referenceType != null) {
     nodeAssert.notStrictEqual(
+      // @ts-expect-error Check if it’s a string.
       ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
       -1,
       '`referenceType` must be `shortcut`, `collapsed`, or `full`'
@@ -326,6 +401,10 @@ function imageReference(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is FootnoteReference}
+ */
 function footnoteReference(node) {
   _void(node)
 
@@ -344,20 +423,29 @@ function footnoteReference(node) {
   }
 }
 
+/**
+ * @param {unknown} node
+ * @returns {asserts node is Table}
+ */
 function table(node) {
   var index = -1
+  /** @type {Array.<unknown>} */
+  var align
+  /** @type {unknown} */
   var value
 
   parent(node)
 
   if (node.align != null) {
     nodeAssert.ok(Array.isArray(node.align), '`align` must be `array`')
+    align = node.align // type-coverage:ignore-line
 
-    while (++index < node.align.length) {
-      value = node.align[index]
+    while (++index < align.length) {
+      value = align[index]
 
       if (value != null) {
         nodeAssert.notStrictEqual(
+          // @ts-expect-error Check if it’s a string.
           ['left', 'right', 'center'].indexOf(value),
           -1,
           "each align in table must be `null, 'left', 'right', 'center'`"
