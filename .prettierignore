@@ -1,5 +1,2 @@
 coverage/
-mdast-util-assert.js
-mdast-util-assert.min.js
-*.json
 *.md
