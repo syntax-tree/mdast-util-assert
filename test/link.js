@@ -1,9 +1,9 @@
 import test from 'tape'
 import {assert} from '../index.js'
 
-test('assert(link)', function (t) {
+test('assert(link)', (t) => {
   t.throws(
-    function () {
+    () => {
       assert({type: 'link'})
     },
     /parent should have `children`: `{ type: 'link' }`$/,
@@ -11,7 +11,7 @@ test('assert(link)', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert({type: 'link', children: []})
     },
     /`url` must be `string`: `{ type: 'link', children: \[] }`$/,
@@ -19,19 +19,19 @@ test('assert(link)', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert({type: 'link', children: [], url: 1})
     },
     /`url` must be `string`: `{ type: 'link', children: \[], url: 1 }`$/,
     'should throw if `url` is not a `string`'
   )
 
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     assert({type: 'link', children: [], url: '1'})
   }, 'should not throw if `link` has no other properties')
 
   t.throws(
-    function () {
+    () => {
       assert({type: 'link', children: [], url: '1', title: 1})
     },
     /`title` must be `string`: `{ type: 'link', children: \[], url: '1', title: 1 }`$/,

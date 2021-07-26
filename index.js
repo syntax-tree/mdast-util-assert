@@ -65,7 +65,7 @@ export function literal(node, parent) {
 export {_void, wrap}
 
 // Construct.
-var mdast = zwitch('type', {
+const mdast = zwitch('type', {
   // Core interface.
   unknown,
   invalid: unknown,
@@ -102,7 +102,7 @@ var mdast = zwitch('type', {
   }
 })
 
-var all = mapz(mdast, {key: 'children'})
+const all = mapz(mdast, {key: 'children'})
 
 /**
  * @param {unknown} node
@@ -439,21 +439,18 @@ function footnoteReference(node) {
  * @returns {asserts node is Table}
  */
 function table(node) {
-  var index = -1
-  /** @type {Array.<unknown>} */
-  var align
-  /** @type {unknown} */
-  var value
+  let index = -1
 
   parent(node)
   indexable(node)
 
   if (node.align != null) {
     nodeAssert.ok(Array.isArray(node.align), '`align` must be `array`')
-    align = node.align // type-coverage:ignore-line
+    /** @type {Array.<unknown>} */
+    const align = node.align // type-coverage:ignore-line
 
     while (++index < align.length) {
-      value = align[index]
+      const value = align[index]
 
       if (value != null) {
         nodeAssert.notStrictEqual(

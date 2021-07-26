@@ -71,9 +71,7 @@
     "rules": {
       "capitalized-comments": "off",
       "eqeqeq": "off",
-      "no-eq-null": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off"
+      "no-eq-null": "off"
     }
   },
   "remarkConfig": {
