@@ -152,6 +152,7 @@ function root(node, ancestor) {
  */
 function list(node) {
   parent(node)
+  indexable(node)
 
   if (node.spread != null) {
     nodeAssert.strictEqual(
@@ -187,6 +188,7 @@ function list(node) {
  */
 function listItem(node) {
   parent(node)
+  indexable(node)
 
   if (node.spread != null) {
     nodeAssert.strictEqual(
@@ -211,6 +213,7 @@ function listItem(node) {
  */
 function heading(node) {
   parent(node)
+  indexable(node)
 
   nodeAssert.ok(node.depth > 0, '`depth` should be gte `1`')
   nodeAssert.ok(node.depth <= 6, '`depth` should be lte `6`')
@@ -222,6 +225,7 @@ function heading(node) {
  */
 function code(node) {
   literal(node)
+  indexable(node)
 
   if (node.lang != null) {
     nodeAssert.strictEqual(
@@ -247,6 +251,7 @@ function code(node) {
  */
 function footnoteDefinition(node) {
   parent(node)
+  indexable(node)
 
   nodeAssert.strictEqual(
     typeof node.identifier,
@@ -269,6 +274,7 @@ function footnoteDefinition(node) {
  */
 function definition(node) {
   _void(node)
+  indexable(node)
 
   nodeAssert.strictEqual(
     typeof node.identifier,
@@ -301,6 +307,7 @@ function definition(node) {
  */
 function link(node) {
   parent(node)
+  indexable(node)
 
   nodeAssert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
 
@@ -319,6 +326,7 @@ function link(node) {
  */
 function image(node) {
   _void(node)
+  indexable(node)
 
   nodeAssert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
 
@@ -341,6 +349,7 @@ function image(node) {
  */
 function linkReference(node) {
   parent(node)
+  indexable(node)
 
   nodeAssert.strictEqual(
     typeof node.identifier,
@@ -372,6 +381,7 @@ function linkReference(node) {
  */
 function imageReference(node) {
   _void(node)
+  indexable(node)
 
   nodeAssert.strictEqual(
     typeof node.identifier,
@@ -407,6 +417,7 @@ function imageReference(node) {
  */
 function footnoteReference(node) {
   _void(node)
+  indexable(node)
 
   nodeAssert.strictEqual(
     typeof node.identifier,
@@ -435,6 +446,7 @@ function table(node) {
   var value
 
   parent(node)
+  indexable(node)
 
   if (node.align != null) {
     nodeAssert.ok(Array.isArray(node.align), '`align` must be `array`')
@@ -452,5 +464,17 @@ function table(node) {
         )
       }
     }
+  }
+}
+
+/**
+ * @param {unknown} value
+ * @returns {asserts value is Record<string, unknown>}
+ */
+function indexable(value) {
+  // Always called when something is an object, this is just for TS.
+  /* c8 ignore next 3 */
+  if (!value || typeof value !== 'object') {
+    throw new Error('Expected object')
   }
 }
