@@ -67,37 +67,67 @@ export {_void, wrap}
 // Construct.
 const mdast = zwitch('type', {
   // Core interface.
+  // @ts-expect-error: fine.
   unknown,
+  // @ts-expect-error: fine.
   invalid: unknown,
   // Per-type handling.
   handlers: {
+    // @ts-expect-error: fine.
     root: wrap(root),
+    // @ts-expect-error: fine.
     paragraph: parent,
+    // @ts-expect-error: fine.
     blockquote: parent,
+    // @ts-expect-error: fine.
     tableRow: parent,
+    // @ts-expect-error: fine.
     tableCell: parent,
+    // @ts-expect-error: fine.
     strong: parent,
+    // @ts-expect-error: fine.
     emphasis: parent,
+    // @ts-expect-error: fine.
     delete: parent,
+    // @ts-expect-error: fine.
     listItem: wrap(listItem),
+    // @ts-expect-error: fine.
     footnote: parent,
+    // @ts-expect-error: fine.
     heading: wrap(heading),
+    // @ts-expect-error: fine.
     text: literal,
+    // @ts-expect-error: fine.
     inlineCode: literal,
+    // @ts-expect-error: fine.
     yaml: literal,
+    // @ts-expect-error: fine.
     toml: literal,
+    // @ts-expect-error: fine.
     code: wrap(code),
+    // @ts-expect-error: fine.
     thematicBreak: _void,
+    // @ts-expect-error: fine.
     break: _void,
+    // @ts-expect-error: fine.
     list: wrap(list),
+    // @ts-expect-error: fine.
     footnoteDefinition: wrap(footnoteDefinition),
+    // @ts-expect-error: fine.
     definition: wrap(definition),
+    // @ts-expect-error: fine.
     link: wrap(link),
+    // @ts-expect-error: fine.
     image: wrap(image),
+    // @ts-expect-error: fine.
     linkReference: wrap(linkReference),
+    // @ts-expect-error: fine.
     imageReference: wrap(imageReference),
+    // @ts-expect-error: fine.
     footnoteReference: wrap(footnoteReference),
+    // @ts-expect-error: fine.
     table: wrap(table),
+    // @ts-expect-error: fine.
     html: literal
   }
 })
@@ -128,9 +158,8 @@ function assertParent(node) {
  */
 function assertLiteral(node) {
   unistLiteral(node)
-  nodeAssert.strictEqual(
-    typeof node.value,
-    'string',
+  nodeAssert(
+    typeof node.value === 'string',
     'literal should have a string `value`'
   )
 }
@@ -143,7 +172,7 @@ function assertLiteral(node) {
 function root(node, ancestor) {
   parent(node)
 
-  nodeAssert.strictEqual(ancestor, undefined, '`root` should not have a parent')
+  nodeAssert(ancestor === undefined, '`root` should not have a parent')
 }
 
 /**
@@ -155,30 +184,21 @@ function list(node) {
   indexable(node)
 
   if (node.spread != null) {
-    nodeAssert.strictEqual(
-      typeof node.spread,
-      'boolean',
-      '`spread` must be `boolean`'
-    )
+    nodeAssert(typeof node.spread === 'boolean', '`spread` must be `boolean`')
   }
 
   if (node.ordered != null) {
-    nodeAssert.strictEqual(
-      typeof node.ordered,
-      'boolean',
-      '`ordered` must be `boolean`'
-    )
+    nodeAssert(typeof node.ordered === 'boolean', '`ordered` must be `boolean`')
   }
 
   if (!node.ordered) {
-    nodeAssert.ok(node.start == null, 'unordered lists must not have `start`')
+    nodeAssert(node.start == null, 'unordered lists must not have `start`')
   } else if (node.start != null) {
-    nodeAssert.strictEqual(
-      typeof node.start,
-      'number',
+    nodeAssert(
+      typeof node.start === 'number',
       'ordered lists must have `start`'
     )
-    nodeAssert.ok(node.start >= 0, '`start` must be gte `0`')
+    nodeAssert(node.start >= 0, '`start` must be gte `0`')
   }
 }
 
@@ -191,19 +211,11 @@ function listItem(node) {
   indexable(node)
 
   if (node.spread != null) {
-    nodeAssert.strictEqual(
-      typeof node.spread,
-      'boolean',
-      '`spread` must be `boolean`'
-    )
+    nodeAssert(typeof node.spread === 'boolean', '`spread` must be `boolean`')
   }
 
   if (node.checked != null) {
-    nodeAssert.strictEqual(
-      typeof node.checked,
-      'boolean',
-      '`checked` must be `boolean`'
-    )
+    nodeAssert(typeof node.checked === 'boolean', '`checked` must be `boolean`')
   }
 }
 
@@ -215,8 +227,9 @@ function heading(node) {
   parent(node)
   indexable(node)
 
-  nodeAssert.ok(node.depth > 0, '`depth` should be gte `1`')
-  nodeAssert.ok(node.depth <= 6, '`depth` should be lte `6`')
+  nodeAssert(typeof node.depth === 'number', '`depth` should be a number')
+  nodeAssert(node.depth > 0, '`depth` should be gte `1`')
+  nodeAssert(node.depth <= 6, '`depth` should be lte `6`')
 }
 
 /**
@@ -228,20 +241,12 @@ function code(node) {
   indexable(node)
 
   if (node.lang != null) {
-    nodeAssert.strictEqual(
-      typeof node.lang,
-      'string',
-      '`lang` must be `string`'
-    )
+    nodeAssert(typeof node.lang === 'string', '`lang` must be `string`')
   }
 
   if (node.meta != null) {
-    nodeAssert.ok(node.lang != null, 'code with `meta` must also have `lang`')
-    nodeAssert.strictEqual(
-      typeof node.meta,
-      'string',
-      '`meta` must be `string`'
-    )
+    nodeAssert(node.lang != null, 'code with `meta` must also have `lang`')
+    nodeAssert(typeof node.meta === 'string', '`meta` must be `string`')
   }
 }
 
@@ -253,18 +258,13 @@ function footnoteDefinition(node) {
   parent(node)
   indexable(node)
 
-  nodeAssert.strictEqual(
-    typeof node.identifier,
-    'string',
+  nodeAssert(
+    typeof node.identifier === 'string',
     '`footnoteDefinition` must have `identifier`'
   )
 
   if (node.label != null) {
-    nodeAssert.strictEqual(
-      typeof node.label,
-      'string',
-      '`label` must be `string`'
-    )
+    nodeAssert(typeof node.label === 'string', '`label` must be `string`')
   }
 }
 
@@ -276,28 +276,19 @@ function definition(node) {
   _void(node)
   indexable(node)
 
-  nodeAssert.strictEqual(
-    typeof node.identifier,
-    'string',
+  nodeAssert(
+    typeof node.identifier === 'string',
     '`identifier` must be `string`'
   )
 
   if (node.label != null) {
-    nodeAssert.strictEqual(
-      typeof node.label,
-      'string',
-      '`label` must be `string`'
-    )
+    nodeAssert(typeof node.label === 'string', '`label` must be `string`')
   }
 
-  nodeAssert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  nodeAssert(typeof node.url === 'string', '`url` must be `string`')
 
   if (node.title != null) {
-    nodeAssert.strictEqual(
-      typeof node.title,
-      'string',
-      '`title` must be `string`'
-    )
+    nodeAssert(typeof node.title === 'string', '`title` must be `string`')
   }
 }
 
@@ -309,14 +300,10 @@ function link(node) {
   parent(node)
   indexable(node)
 
-  nodeAssert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  nodeAssert(typeof node.url === 'string', '`url` must be `string`')
 
   if (node.title != null) {
-    nodeAssert.strictEqual(
-      typeof node.title,
-      'string',
-      '`title` must be `string`'
-    )
+    nodeAssert(typeof node.title === 'string', '`title` must be `string`')
   }
 }
 
@@ -328,18 +315,14 @@ function image(node) {
   _void(node)
   indexable(node)
 
-  nodeAssert.strictEqual(typeof node.url, 'string', '`url` must be `string`')
+  nodeAssert(typeof node.url === 'string', '`url` must be `string`')
 
   if (node.title != null) {
-    nodeAssert.strictEqual(
-      typeof node.title,
-      'string',
-      '`title` must be `string`'
-    )
+    nodeAssert(typeof node.title === 'string', '`title` must be `string`')
   }
 
   if (node.alt != null) {
-    nodeAssert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
+    nodeAssert(typeof node.alt === 'string', '`alt` must be `string`')
   }
 }
 
@@ -351,25 +334,19 @@ function linkReference(node) {
   parent(node)
   indexable(node)
 
-  nodeAssert.strictEqual(
-    typeof node.identifier,
-    'string',
+  nodeAssert(
+    typeof node.identifier === 'string',
     '`identifier` must be `string`'
   )
 
   if (node.label != null) {
-    nodeAssert.strictEqual(
-      typeof node.label,
-      'string',
-      '`label` must be `string`'
-    )
+    nodeAssert(typeof node.label === 'string', '`label` must be `string`')
   }
 
   if (node.referenceType != null) {
-    nodeAssert.notStrictEqual(
+    nodeAssert(
       // @ts-expect-error Check if it’s a string.
-      ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
-      -1,
+      ['shortcut', 'collapsed', 'full'].includes(node.referenceType),
       '`referenceType` must be `shortcut`, `collapsed`, or `full`'
     )
   }
@@ -383,29 +360,23 @@ function imageReference(node) {
   _void(node)
   indexable(node)
 
-  nodeAssert.strictEqual(
-    typeof node.identifier,
-    'string',
+  nodeAssert(
+    typeof node.identifier === 'string',
     '`identifier` must be `string`'
   )
 
   if (node.label != null) {
-    nodeAssert.strictEqual(
-      typeof node.label,
-      'string',
-      '`label` must be `string`'
-    )
+    nodeAssert(typeof node.label === 'string', '`label` must be `string`')
   }
 
   if (node.alt != null) {
-    nodeAssert.strictEqual(typeof node.alt, 'string', '`alt` must be `string`')
+    nodeAssert(typeof node.alt === 'string', '`alt` must be `string`')
   }
 
   if (node.referenceType != null) {
-    nodeAssert.notStrictEqual(
+    nodeAssert(
       // @ts-expect-error Check if it’s a string.
-      ['shortcut', 'collapsed', 'full'].indexOf(node.referenceType),
-      -1,
+      ['shortcut', 'collapsed', 'full'].includes(node.referenceType),
       '`referenceType` must be `shortcut`, `collapsed`, or `full`'
     )
   }
@@ -419,18 +390,13 @@ function footnoteReference(node) {
   _void(node)
   indexable(node)
 
-  nodeAssert.strictEqual(
-    typeof node.identifier,
-    'string',
+  nodeAssert(
+    typeof node.identifier === 'string',
     '`identifier` must be `string`'
   )
 
   if (node.label != null) {
-    nodeAssert.strictEqual(
-      typeof node.label,
-      'string',
-      '`label` must be `string`'
-    )
+    nodeAssert(typeof node.label === 'string', '`label` must be `string`')
   }
 }
 
@@ -445,7 +411,7 @@ function table(node) {
   indexable(node)
 
   if (node.align != null) {
-    nodeAssert.ok(Array.isArray(node.align), '`align` must be `array`')
+    nodeAssert(Array.isArray(node.align), '`align` must be `array`')
     /** @type {Array.<unknown>} */
     const align = node.align // type-coverage:ignore-line
 
@@ -453,10 +419,9 @@ function table(node) {
       const value = align[index]
 
       if (value != null) {
-        nodeAssert.notStrictEqual(
+        nodeAssert(
           // @ts-expect-error Check if it’s a string.
-          ['left', 'right', 'center'].indexOf(value),
-          -1,
+          ['left', 'right', 'center'].includes(value),
           "each align in table must be `null, 'left', 'right', 'center'`"
         )
       }
