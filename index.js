@@ -62,8 +62,6 @@ export function literal(node, parent) {
   return wrap(assertLiteral)(node, parent)
 }
 
-export {_void, wrap}
-
 // Construct.
 const mdast = zwitch('type', {
   // Core interface.
@@ -440,3 +438,5 @@ function indexable(value) {
     throw new Error('Expected object')
   }
 }
+
+export {_void, wrap} from 'unist-util-assert'
