@@ -410,7 +410,7 @@ function table(node) {
 
   if (node.align != null) {
     nodeAssert(Array.isArray(node.align), '`align` must be `array`')
-    /** @type {Array.<unknown>} */
+    /** @type {Array<unknown>} */
     const align = node.align // type-coverage:ignore-line
 
     while (++index < align.length) {
