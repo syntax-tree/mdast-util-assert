@@ -28,11 +28,13 @@
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
+    "lib/",
     "index.d.ts",
     "index.js"
   ],
   "dependencies": {
-    "@types/mdast": "^3.0.3",
+    "@types/mdast": "^3.0.0",
+    "@types/unist": "^2.0.0",
     "mapz": "^2.0.0",
     "unist-util-assert": "^3.0.0",
     "zwitch": "^2.0.0"
