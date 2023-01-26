@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(table)', (t) => {
-  t.throws(
+test('assert(table)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'table'})
     },
@@ -10,11 +11,11 @@ test('assert(table)', (t) => {
     'should throw if `table` is not a parent'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'table', children: []})
   }, 'should not throw if `table` has no other properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'table', children: [], align: 1})
     },
@@ -22,7 +23,7 @@ test('assert(table)', (t) => {
     'should throw if `align` is not a `string`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'table', children: [], align: [1]})
     },
@@ -30,13 +31,11 @@ test('assert(table)', (t) => {
     'should throw if an `align` is unknown'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({
       type: 'table',
       children: [],
       align: [null, 'left', 'right', 'center']
     })
   }, 'should allow defined aligns')
-
-  t.end()
 })

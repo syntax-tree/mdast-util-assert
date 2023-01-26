@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(footnoteReference)', (t) => {
-  t.throws(
+test('assert(footnoteReference)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteReference'})
     },
@@ -10,7 +11,7 @@ test('assert(footnoteReference)', (t) => {
     'should throw if `footnoteReference` has no `identifier`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteReference', identifier: 1})
     },
@@ -18,17 +19,15 @@ test('assert(footnoteReference)', (t) => {
     'should throw if `identifier` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'footnoteReference', identifier: '1'})
   }, 'should not throw if `footnoteReference` has no other properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteReference', identifier: '1', label: 1})
     },
     /`label` must be `string`: `{ type: 'footnoteReference', identifier: '1', label: 1 }`$/,
     'should throw if `label` is not a `string`'
   )
-
-  t.end()
 })

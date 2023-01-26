@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(footnoteDefinition)', (t) => {
-  t.throws(
+test('assert(footnoteDefinition)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteDefinition'})
     },
@@ -10,7 +11,7 @@ test('assert(footnoteDefinition)', (t) => {
     'should throw if `footnoteDefinition` is not a parent'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteDefinition', children: []})
     },
@@ -18,7 +19,7 @@ test('assert(footnoteDefinition)', (t) => {
     'should throw if `footnoteDefinition` has no identifier'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'footnoteDefinition', identifier: 1, children: []})
     },
@@ -26,11 +27,11 @@ test('assert(footnoteDefinition)', (t) => {
     'should throw if `identifier` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'footnoteDefinition', identifier: '1', children: []})
   }, 'should not throw if `footnoteDefinition` has an identifier')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({
         type: 'footnoteDefinition',
@@ -42,6 +43,4 @@ test('assert(footnoteDefinition)', (t) => {
     /`label` must be `string`: `{ type: 'footnoteDefinition',\s+identifier: '1',\s+label: 1,\s+children: \[] }`$/,
     'should throw if `label` is not a `string`'
   )
-
-  t.end()
 })

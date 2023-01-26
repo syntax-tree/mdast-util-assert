@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(heading)', (t) => {
-  t.throws(
+test('assert(heading)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'heading'})
     },
@@ -10,7 +11,7 @@ test('assert(heading)', (t) => {
     'should throw if a `heading` is not a parent'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'heading', depth: 0, children: []})
     },
@@ -18,7 +19,7 @@ test('assert(heading)', (t) => {
     'should throw if `depth` is lower than 1'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'heading', depth: 7, children: []})
     },
@@ -26,9 +27,7 @@ test('assert(heading)', (t) => {
     'should throw if `depth` is lower than 7'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'heading', depth: 1, children: []})
   }, 'should not throw if `heading` is between 0 and 7')
-
-  t.end()
 })

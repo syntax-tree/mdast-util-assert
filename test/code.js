@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(code)', (t) => {
-  t.throws(
+test('assert(code)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'code'})
     },
@@ -10,11 +11,11 @@ test('assert(code)', (t) => {
     'should throw if `code` is not a text'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'code', value: ''})
   }, 'should not throw if `code` has no extra properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'code', lang: 0, value: ''})
     },
@@ -22,7 +23,7 @@ test('assert(code)', (t) => {
     'should throw if `lang` is not a string'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'code', lang: 'js', meta: 1, value: ''})
     },
@@ -30,13 +31,11 @@ test('assert(code)', (t) => {
     'should throw if `meta` is not a string'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'code', meta: '', value: ''})
     },
     /code with `meta` must also have `lang`: `{ type: 'code', meta: '', value: '' }`$/,
     'should throw if `meta` is defined but not `lang`'
   )
-
-  t.end()
 })

@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(image)', (t) => {
-  t.throws(
+test('assert(image)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'image'})
     },
@@ -10,7 +11,7 @@ test('assert(image)', (t) => {
     'should throw without `url`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'image', url: 1})
     },
@@ -18,11 +19,11 @@ test('assert(image)', (t) => {
     'should throw if `url` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'image', url: '1'})
   }, 'should not throw if `image` has no other properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'image', url: '1', title: 1})
     },
@@ -30,13 +31,11 @@ test('assert(image)', (t) => {
     'should throw if `title` is not a `string`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'image', url: '1', alt: 1})
     },
     /`alt` must be `string`: `{ type: 'image', url: '1', alt: 1 }`$/,
     'should throw if `alt` is not a `string`'
   )
-
-  t.end()
 })

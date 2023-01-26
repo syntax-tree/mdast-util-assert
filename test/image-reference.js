@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(imageReference)', (t) => {
-  t.throws(
+test('assert(imageReference)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'imageReference'})
     },
@@ -10,7 +11,7 @@ test('assert(imageReference)', (t) => {
     'should throw if `imageReference` has no `identifier`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'imageReference', identifier: 1})
     },
@@ -18,11 +19,11 @@ test('assert(imageReference)', (t) => {
     'should throw if `identifier` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'imageReference', identifier: '1'})
   }, 'should not throw if `imageReference` has no other properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'imageReference', identifier: '1', alt: 1})
     },
@@ -30,7 +31,7 @@ test('assert(imageReference)', (t) => {
     'should throw if `alt` is not a `string`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'imageReference', identifier: '1', referenceType: 1})
     },
@@ -38,7 +39,7 @@ test('assert(imageReference)', (t) => {
     'should throw if `referenceType` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({
       type: 'imageReference',
       identifier: '1',
@@ -46,13 +47,11 @@ test('assert(imageReference)', (t) => {
     })
   }, 'should not throw if `referenceType` is valid')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'imageReference', identifier: '1', label: 1})
     },
     /`label` must be `string`: `{ type: 'imageReference', identifier: '1', label: 1 }`$/,
     'should throw if `label` is not a `string`'
   )
-
-  t.end()
 })

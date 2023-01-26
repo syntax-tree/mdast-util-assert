@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(linkReference)', (t) => {
-  t.throws(
+test('assert(linkReference)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'linkReference'})
     },
@@ -10,7 +11,7 @@ test('assert(linkReference)', (t) => {
     'should throw if `linkReference` has no children'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'linkReference', children: []})
     },
@@ -18,7 +19,7 @@ test('assert(linkReference)', (t) => {
     'should throw if `linkReference` has no `identifier`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'linkReference', identifier: 1, children: []})
     },
@@ -26,11 +27,11 @@ test('assert(linkReference)', (t) => {
     'should throw if `identifier` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'linkReference', identifier: '1', children: []})
   }, 'should not throw if `linkReference` has no other properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({
         type: 'linkReference',
@@ -43,7 +44,7 @@ test('assert(linkReference)', (t) => {
     'should throw if `referenceType` is not a `string`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({
       type: 'linkReference',
       identifier: '1',
@@ -52,13 +53,11 @@ test('assert(linkReference)', (t) => {
     })
   }, 'should not throw if `referenceType` is valid')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'linkReference', identifier: '1', children: [], label: 1})
     },
     /`label` must be `string`: `{ type: 'linkReference', identifier: '1', children: \[], label: 1 }`$/,
     'should throw if `label` is not a `string`'
   )
-
-  t.end()
 })

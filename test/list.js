@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(list)', (t) => {
-  t.throws(
+test('assert(list)', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'list'})
     },
@@ -10,11 +11,11 @@ test('assert(list)', (t) => {
     'should throw if a `list` is not a parent'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'list', children: []})
   }, 'should not throw for a list without extra properties')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'list', spread: 1, children: []})
     },
@@ -22,11 +23,11 @@ test('assert(list)', (t) => {
     'should throw if `spread` is not a `boolean`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'list', spread: false, children: []})
   }, 'should not throw if `spread` is a `boolean`')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'list', ordered: 'yup', children: []})
     },
@@ -34,11 +35,11 @@ test('assert(list)', (t) => {
     'should throw if a `ordered` is not a `boolean`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'list', ordered: true, children: []})
   }, 'should not throw if `ordered` is a `boolean`')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'list', ordered: false, start: 1, children: []})
     },
@@ -46,7 +47,7 @@ test('assert(list)', (t) => {
     'should throw if an `ordered: false` list has a `start`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'list', ordered: true, start: false, children: []})
     },
@@ -54,7 +55,7 @@ test('assert(list)', (t) => {
     'should throw if an `ordered` list has a non-numeric `start`'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'list', ordered: true, start: -1, children: []})
     },
@@ -62,13 +63,11 @@ test('assert(list)', (t) => {
     'should throw if an `ordered` list has a negative `start`'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'list', ordered: true, start: 0, children: []})
   }, 'should not throw if an `ordered` list has a zero `start`')
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'list', ordered: true, start: 5, children: []})
   }, 'should not throw if an `ordered` list has a positive `start`')
-
-  t.end()
 })
