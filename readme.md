@@ -17,7 +17,12 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`assert(node)`](#assertnode)
+    *   [`assert(tree[, parent])`](#asserttree-parent)
+    *   [`parent(tree[, parent])`](#parenttree-parent)
+    *   [`literal(node[, parent])`](#literalnode-parent)
+    *   [`_void(node[, parent])`](#_voidnode-parent)
+    *   [`wrap(fn)`](#wrapfn)
+    *   [`AssertionError`](#assertionerror)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
 *   [Security](#security)
@@ -40,7 +45,7 @@ for any [unist][] node.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-util-assert
@@ -79,41 +84,107 @@ assert({type: 'paragraph', value: 'foo'})
 
 ## API
 
-This package exports the identifiers `assert`, `parent`, `literal`, `_void`,
-and `wrap`.
+This package exports the identifiers [`_void`][api-void],
+[`assert`][api-assert], [`literal`][api-literal], [`parent`][api-parent],
+and [`wrap`][api-wrap].
 There is no default export.
 
-### `assert(node)`
+### `assert(tree[, parent])`
 
-Assert that [`tree`][tree] is a valid [mdast][] [node][].
-If `tree` is a [parent][], all [child][]ren will be asserted as well.
+Assert that `tree` is a valid mdast [`Node`][node].
 
-The `parent`, `literal`, `_void`, and `wrap` methods from
-[`unist-util-assert`][unist-util-assert] are also exported.
+If `tree` is a parent, all children will be asserted too.
 
-###### Throws
+Supports unknown mdast nodes.
 
-When `node`, or one of its children, is not a valid mdast node.
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent], optional)
+    — optional, valid parent
 
 ###### Returns
 
 Nothing.
 
+###### Throws
+
+When `tree` (or its descendants) is not an mdast node
+([`AssertionError`][assertionerror]).
+
+### `parent(tree[, parent])`
+
+Assert that `tree` is a valid mdast [`Parent`][parent].
+
+All children will be asserted too.
+
+Supports unknown mdast nodes.
+
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
+
+###### Throws
+
+When `tree` is not a parent or its descendants are not nodes
+([`AssertionError`][assertionerror])
+
+### `literal(node[, parent])`
+
+Assert that `node` is a valid mdast [`Literal`][literal].
+
+Supports unknown mdast nodes.
+
+###### Parameters
+
+*   `node` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
+
+###### Throws
+
+When `node` is not an mdast literal ([`AssertionError`][assertionerror]).
+
+### `_void(node[, parent])`
+
+Re-exported from [`unist-util-assert`][unist-util-assert-void].
+
+### `wrap(fn)`
+
+Re-exported from [`unist-util-assert`][unist-util-assert-wrap].
+
+### `AssertionError`
+
+Re-exported from [`unist-util-assert`][unist-util-assert-assertionerror].
+
 ## Types
 
 This package is fully typed with [TypeScript][].
-It does not export additional types.
+It exports the additional type [`AssertionError`][assertionerror].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Security
 
-Use of `mdast-util-assert` does not involve [**hast**][hast] so there are no
+Use of `mdast-util-assert` does not involve **[hast][]** so there are no
 openings for [cross-site scripting (XSS)][xss] attacks.
 
 ## Related
@@ -191,16 +262,32 @@ abide by its terms.
 
 [unist]: https://github.com/syntax-tree/unist
 
-[tree]: https://github.com/syntax-tree/unist#tree
-
-[child]: https://github.com/syntax-tree/unist#child
-
 [unist-util-assert]: https://github.com/syntax-tree/unist-util-assert
 
 [mdast]: https://github.com/syntax-tree/mdast
 
 [node]: https://github.com/syntax-tree/mdast#nodes
 
+[literal]: https://github.com/syntax-tree/mdast#literal
+
 [parent]: https://github.com/syntax-tree/mdast#parent
 
 [hast]: https://github.com/syntax-tree/hast
+
+[api-void]: #_voidnode-parent
+
+[api-assert]: #asserttree-parent
+
+[api-literal]: #literalnode-parent
+
+[api-parent]: #parenttree-parent
+
+[api-wrap]: #wrapfn
+
+[assertionerror]: #assertionerror
+
+[unist-util-assert-void]: https://github.com/syntax-tree/unist-util-assert#_voidnode-parent
+
+[unist-util-assert-wrap]: https://github.com/syntax-tree/unist-util-assert#wrapfn
+
+[unist-util-assert-assertionerror]: https://github.com/syntax-tree/unist-util-assert#assertionerror
