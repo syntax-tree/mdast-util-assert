@@ -1,8 +1,10 @@
 /**
- * @typedef {Parent['children'][number]|Root} Node
- * @typedef {import('mdast').Parent} Parent
- * @typedef {import('mdast').Literal} Literal
+ * @typedef {import('unist').Node} UnistNode
+ * @typedef {import('unist').Parent} UnistParent
+ * @typedef {import('unist').Literal} UnistLiteral
+ *
  * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').Content} Content
  * @typedef {import('mdast').List} List
  * @typedef {import('mdast').ListItem} ListItem
  * @typedef {import('mdast').Heading} Heading
@@ -17,6 +19,11 @@
  * @typedef {import('mdast').Table} Table
  */
 
+/**
+ * @typedef {Root | Content} Node
+ * @typedef {Extract<Node, UnistParent>} Parent
+ * @typedef {Extract<Node, UnistLiteral>} Literal
+ */
 import nodeAssert from 'node:assert'
 import {zwitch} from 'zwitch'
 import {mapz} from 'mapz'
@@ -33,7 +40,7 @@ import {
  * If `node` is a parent, all children will be asserted too.
  *
  * @param {unknown} [node]
- * @param {Parent} [parent]
+ * @param {UnistParent | null | undefined} [parent]
  * @returns {asserts node is Node}
  */
 export function assert(node, parent) {
@@ -44,7 +51,7 @@ export function assert(node, parent) {
  * Assert that `node` is a valid mdast parent.
  *
  * @param {unknown} [node]
- * @param {Parent} [parent]
+ * @param {UnistParent | null | undefined} [parent]
  * @returns {asserts node is Parent}
  */
 export function parent(node, parent) {
@@ -55,7 +62,7 @@ export function parent(node, parent) {
  * Assert that `node` is a valid mdast literal.
  *
  * @param {unknown} [node]
- * @param {Parent} [parent]
+ * @param {UnistParent | null | undefined} [parent]
  * @returns {asserts node is Literal}
  */
 export function literal(node, parent) {
@@ -65,67 +72,37 @@ export function literal(node, parent) {
 // Construct.
 const mdast = zwitch('type', {
   // Core interface.
-  // @ts-expect-error: fine.
   unknown,
-  // @ts-expect-error: fine.
   invalid: unknown,
   // Per-type handling.
   handlers: {
-    // @ts-expect-error: fine.
     root: wrap(root),
-    // @ts-expect-error: fine.
     paragraph: parent,
-    // @ts-expect-error: fine.
     blockquote: parent,
-    // @ts-expect-error: fine.
     tableRow: parent,
-    // @ts-expect-error: fine.
     tableCell: parent,
-    // @ts-expect-error: fine.
     strong: parent,
-    // @ts-expect-error: fine.
     emphasis: parent,
-    // @ts-expect-error: fine.
     delete: parent,
-    // @ts-expect-error: fine.
     listItem: wrap(listItem),
-    // @ts-expect-error: fine.
     footnote: parent,
-    // @ts-expect-error: fine.
     heading: wrap(heading),
-    // @ts-expect-error: fine.
     text: literal,
-    // @ts-expect-error: fine.
     inlineCode: literal,
-    // @ts-expect-error: fine.
     yaml: literal,
-    // @ts-expect-error: fine.
     toml: literal,
-    // @ts-expect-error: fine.
     code: wrap(code),
-    // @ts-expect-error: fine.
     thematicBreak: _void,
-    // @ts-expect-error: fine.
     break: _void,
-    // @ts-expect-error: fine.
     list: wrap(list),
-    // @ts-expect-error: fine.
     footnoteDefinition: wrap(footnoteDefinition),
-    // @ts-expect-error: fine.
     definition: wrap(definition),
-    // @ts-expect-error: fine.
     link: wrap(link),
-    // @ts-expect-error: fine.
     image: wrap(image),
-    // @ts-expect-error: fine.
     linkReference: wrap(linkReference),
-    // @ts-expect-error: fine.
     imageReference: wrap(imageReference),
-    // @ts-expect-error: fine.
     footnoteReference: wrap(footnoteReference),
-    // @ts-expect-error: fine.
     table: wrap(table),
-    // @ts-expect-error: fine.
     html: literal
   }
 })
@@ -134,7 +111,7 @@ const all = mapz(mdast, {key: 'children'})
 
 /**
  * @param {unknown} node
- * @param {Parent} [ancestor]
+ * @param {UnistParent | null | undefined} [ancestor]
  * @returns {asserts node is Node}
  */
 function unknown(node, ancestor) {
@@ -157,6 +134,8 @@ function assertParent(node) {
 function assertLiteral(node) {
   unistLiteral(node)
   nodeAssert(
+    // `value` in unist literals is `any`.
+    // type-coverage:ignore-next-line
     typeof node.value === 'string',
     'literal should have a string `value`'
   )
@@ -164,7 +143,7 @@ function assertLiteral(node) {
 
 /**
  * @param {unknown} node
- * @param {Parent} ancestor
+ * @param {UnistParent | null | undefined} [ancestor]
  * @returns {asserts node is Root}
  */
 function root(node, ancestor) {
