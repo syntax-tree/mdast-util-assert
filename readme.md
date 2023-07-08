@@ -54,14 +54,14 @@ npm install mdast-util-assert
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {assert} from 'https://esm.sh/mdast-util-assert@4'
+import {assert} from 'https://esm.sh/mdast-util-assert@5'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {assert} from 'https://esm.sh/mdast-util-assert@4?bundle'
+  import {assert} from 'https://esm.sh/mdast-util-assert@5?bundle'
 </script>
 ```
 
