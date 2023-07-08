@@ -1,6 +1,6 @@
 import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
-import {assert} from '../index.js'
+import {assert} from 'mdast-util-assert'
 
 test('assert(list)', async function (t) {
   await t.test('should throw if a `list` is not a parent', async function () {

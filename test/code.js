@@ -1,6 +1,6 @@
 import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
-import {assert} from '../index.js'
+import {assert} from 'mdast-util-assert'
 
 test('assert(code)', async function (t) {
   await t.test('should throw if `code` is not a text', async function () {

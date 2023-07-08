@@ -1,6 +1,6 @@
 import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
-import {assert} from '../index.js'
+import {assert} from 'mdast-util-assert'
 
 test('assert(image)', async function (t) {
   await t.test('should throw without `url`', async function () {
