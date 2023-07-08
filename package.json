@@ -80,7 +80,6 @@
   "xo": {
     "prettier": true,
     "rules": {
-      "capitalized-comments": "off",
       "eqeqeq": "off",
       "no-eq-null": "off"
     }
