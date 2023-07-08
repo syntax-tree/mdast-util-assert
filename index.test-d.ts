@@ -1,4 +1,4 @@
-import {expectType, expectNotType} from 'tsd'
+import {expectNotType, expectType} from 'tsd'
 import type {Nodes, Parents} from 'mdast'
 import {assert, parent} from './index.js'
 

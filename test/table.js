@@ -2,40 +2,41 @@ import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(table)', () => {
-  nodeAssert.throws(
-    () => {
+test('assert(table)', async function (t) {
+  await t.test('should throw if `table` is not a parent', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'table'})
-    },
-    /parent should have `children`: `{ type: 'table' }`$/,
-    'should throw if `table` is not a parent'
+    }, /parent should have `children`: `{ type: 'table' }`$/)
+  })
+
+  await t.test(
+    'should not throw if `table` has no other properties',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'table', children: []})
+      })
+    }
   )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'table', children: []})
-  }, 'should not throw if `table` has no other properties')
-
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw if `align` is not a `string`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'table', children: [], align: 1})
-    },
-    /`align` must be `array`: `{ type: 'table', children: \[], align: 1 }`$/,
-    'should throw if `align` is not a `string`'
-  )
+    }, /`align` must be `array`: `{ type: 'table', children: \[], align: 1 }`$/)
+  })
 
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw if an `align` is unknown', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'table', children: [], align: [1]})
-    },
-    /each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[], align: \[ 1 ] }`$/,
-    'should throw if an `align` is unknown'
-  )
+    }, /each align in table must be `null, 'left', 'right', 'center'`: `{ type: 'table', children: \[], align: \[ 1 ] }`$/)
+  })
 
-  nodeAssert.doesNotThrow(() => {
-    assert({
-      type: 'table',
-      children: [],
-      align: [null, 'left', 'right', 'center']
+  await t.test('should allow defined aligns', async function () {
+    nodeAssert.doesNotThrow(function () {
+      assert({
+        type: 'table',
+        children: [],
+        align: [null, 'left', 'right', 'center']
+      })
     })
-  }, 'should allow defined aligns')
+  })
 })

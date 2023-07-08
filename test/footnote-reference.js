@@ -2,32 +2,37 @@ import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(footnoteReference)', () => {
-  nodeAssert.throws(
-    () => {
-      assert({type: 'footnoteReference'})
-    },
-    /`identifier` must be `string`: `{ type: 'footnoteReference' }`$/,
-    'should throw if `footnoteReference` has no `identifier`'
+test('assert(footnoteReference)', async function (t) {
+  await t.test(
+    'should throw if `footnoteReference` has no `identifier`',
+    async function () {
+      nodeAssert.throws(function () {
+        assert({type: 'footnoteReference'})
+      }, /`identifier` must be `string`: `{ type: 'footnoteReference' }`$/)
+    }
   )
 
-  nodeAssert.throws(
-    () => {
-      assert({type: 'footnoteReference', identifier: 1})
-    },
-    /`identifier` must be `string`: `{ type: 'footnoteReference', identifier: 1 }`$/,
-    'should throw if `identifier` is not a `string`'
+  await t.test(
+    'should throw if `identifier` is not a `string`',
+    async function () {
+      nodeAssert.throws(function () {
+        assert({type: 'footnoteReference', identifier: 1})
+      }, /`identifier` must be `string`: `{ type: 'footnoteReference', identifier: 1 }`$/)
+    }
   )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'footnoteReference', identifier: '1'})
-  }, 'should not throw if `footnoteReference` has no other properties')
+  await t.test(
+    'should not throw if `footnoteReference` has no other properties',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'footnoteReference', identifier: '1'})
+      })
+    }
+  )
 
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw if `label` is not a `string`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'footnoteReference', identifier: '1', label: 1})
-    },
-    /`label` must be `string`: `{ type: 'footnoteReference', identifier: '1', label: 1 }`$/,
-    'should throw if `label` is not a `string`'
-  )
+    }, /`label` must be `string`: `{ type: 'footnoteReference', identifier: '1', label: 1 }`$/)
+  })
 })

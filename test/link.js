@@ -2,40 +2,37 @@ import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
 import {assert} from '../index.js'
 
-test('assert(link)', () => {
-  nodeAssert.throws(
-    () => {
+test('assert(link)', async function (t) {
+  await t.test('should throw if `link` is not a parent', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'link'})
-    },
-    /parent should have `children`: `{ type: 'link' }`$/,
-    'should throw if `link` is not a parent'
-  )
+    }, /parent should have `children`: `{ type: 'link' }`$/)
+  })
 
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw without `url`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'link', children: []})
-    },
-    /`url` must be `string`: `{ type: 'link', children: \[] }`$/,
-    'should throw without `url`'
-  )
+    }, /`url` must be `string`: `{ type: 'link', children: \[] }`$/)
+  })
 
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw if `url` is not a `string`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'link', children: [], url: 1})
-    },
-    /`url` must be `string`: `{ type: 'link', children: \[], url: 1 }`$/,
-    'should throw if `url` is not a `string`'
+    }, /`url` must be `string`: `{ type: 'link', children: \[], url: 1 }`$/)
+  })
+
+  await t.test(
+    'should not throw if `link` has no other properties',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'link', children: [], url: '1'})
+      })
+    }
   )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'link', children: [], url: '1'})
-  }, 'should not throw if `link` has no other properties')
-
-  nodeAssert.throws(
-    () => {
+  await t.test('should throw if `title` is not a `string`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'link', children: [], url: '1', title: 1})
-    },
-    /`title` must be `string`: `{ type: 'link', children: \[], url: '1', title: 1 }`$/,
-    'should throw if `title` is not a `string`'
-  )
+    }, /`title` must be `string`: `{ type: 'link', children: \[], url: '1', title: 1 }`$/)
+  })
 })
